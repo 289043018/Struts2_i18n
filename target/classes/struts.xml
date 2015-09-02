@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+<!-- 配置根元素 -->
+<struts>
+<!-- bean标签用于一个JavaBean实例 -->
+
+   <!--  constant标签用于Struts2默认行为标签 -->
+<!--    配置web默认编码集，相当于HttpServletRequest.setChartacterIncoding用法 -->
+  <constant name="struts.i18n.encoding" value="UTF-8"/>
+<!--   开启动态方法调用功能，系统默认是false，如果不设置成true，则无法在action中设置调用指定的方法。 -->
+  <constant name="struts.enable.DynamicMethodInvocation" value="true" />
+<!--   默认的Struts2的请求后缀是.action，也就是说我们不配置该元素.也就是说我们这里设置了action/do都会被拦截 -->
+  <constant name="struts.action.extension" value="action,do"/>
+  	<!-- 设置浏览器是否缓存静态内容，默认值为true。在我们开发阶段，建议修改为false，防止修改后测试不到 -->
+  	<constant name="struts.serve.static.browserCache" value="false"/>
+  	<!-- 当struts配置文件修改之后，系统是否自动重新加载该文件，默认为false，部署到服务器之后就可以改为false -->
+  	<constant name="struts.configuration.xml.reload" value="true"/>
+  	<!-- 开发模式下使用，这样可以打印出更加详细的错误信息，便于调试 -->
+  	<constant name="struts.devMode" value="true"/>
+  	<!-- 默认视图主题 -->
+<!--   	<constant name="struts.ui.theme" value="simple"/> -->
+  	<!-- 国际化设置，加入i18n支持 -->
+  	<constant name="struts.custom.i18n.resources" value="message"/>
+<!--   package标签包标签，用于区分不同的请求文件的标签，比方说
+  	网站前台请求和网站后台请求 -->
+  	<!-- name属性：包名，用于被别的包调用或者继承 -->
+  	<package name="text" extends="struts-default">
+  		<action name="changLanguage" class="com.hand.action.ChangLanguageAction">
+  			<result name="success">/index.jsp</result>
+  		
+  		</action>
+  		<action name="loginAction" class="com.hand.action.LoginAction">
+  			<interceptor-ref name="token"></interceptor-ref>
+  			<interceptor-ref name="defaultStack"></interceptor-ref>
+  			<result name="success">/login.jsp</result>
+  			<result name="invalid.token">error.jsp</result>
+  		</action>
+  	</package>
+  	
+<!--   	include标签用于引入其他的xml配置文件 -->
+
+</struts>
